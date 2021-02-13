@@ -1,0 +1,130 @@
+<html>
+<head>
+<title>MainPlaySemaphor.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000080; font-weight: bold;}
+.s1 { color: #000000;}
+.s2 { color: #0000ff;}
+.s3 { color: #008000; font-weight: bold;}
+.ls0 { height: 1px; border-width: 0; color: #c0c0c0; background-color:#c0c0c0}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainPlaySemaphor.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span>AD.SW08.ad.Playground.PlaySemaphor;
+
+<span class="s0">import </span>org.apache.logging.log4j.LogManager;
+<span class="s0">import </span>org.apache.logging.log4j.Logger;
+
+<span class="s0">import </span>java.util.concurrent.Semaphore;
+
+<span class="s0">public class </span>MainPlaySemaphor {
+
+    <span class="s0">private static final </span>Logger LOG = LogManager.getLogger(MainPlaySemaphor.<span class="s0">class</span>);
+
+    <span class="s0">public static volatile int </span>counter = <span class="s2">0</span>;
+<hr class="ls0">    <span class="s0">public static void </span>main(String[] args) {
+
+        Semaphore semaphore = <span class="s0">new </span>Semaphore(<span class="s2">2</span>, <span class="s0">true</span>);
+
+        Thread thread1 = <span class="s0">new </span>Thread(() -&gt; {
+            <span class="s0">try </span>{
+                semaphore.acquire();
+                counter++;
+                LOG.info(<span class="s3">&quot;Semaphor wurde passiert. Thread1 wird nun am Fabrikband &quot; </span>+ counter + <span class="s3">&quot; erstellt&quot;</span>);
+                Thread.sleep(<span class="s2">1000</span>);
+            }<span class="s0">catch</span>(InterruptedException ie){
+                LOG.warn(<span class="s3">&quot;interrupted&quot;</span>);
+                <span class="s0">return</span>;
+            }
+            LOG.info(<span class="s3">&quot;Thread 1 ist erstellt.&quot;</span>);
+            counter--;
+            semaphore.release();
+        });
+
+        Thread thread2 = <span class="s0">new </span>Thread(() -&gt; {
+            <span class="s0">try </span>{
+                semaphore.acquire();
+                counter++;
+                LOG.info(<span class="s3">&quot;Semaphor wurde passiert. Der grosse Thread2 wird nun am Fabrikband &quot; </span>+ counter +
+                        <span class="s3">&quot; erstellt. Dies dauert etwas länger.&quot;</span>);
+                Thread.sleep(<span class="s2">1500</span>);
+            }<span class="s0">catch</span>(InterruptedException ie){
+                LOG.warn(<span class="s3">&quot;interrupted&quot;</span>);
+                <span class="s0">return</span>;
+            }
+            LOG.info(<span class="s3">&quot;Thread 2 ist erstellt.&quot;</span>);
+            counter--;
+            semaphore.release();
+        });
+
+        Thread thread3 = <span class="s0">new </span>Thread(() -&gt; {
+            <span class="s0">try </span>{
+                semaphore.acquire();
+                counter++;
+                LOG.info(<span class="s3">&quot;Semaphor wurde passiert. Thread3 wird nun am Fabrikband &quot; </span>+ counter + <span class="s3">&quot; erstellt&quot;</span>);
+                Thread.sleep(<span class="s2">1000</span>);
+            }<span class="s0">catch</span>(InterruptedException ie){
+                LOG.warn(<span class="s3">&quot;interrupted&quot;</span>);
+                <span class="s0">return</span>;
+            }
+            LOG.info(<span class="s3">&quot;Thread 3 ist erstellt.&quot;</span>);
+            counter--;
+            semaphore.release();
+        });
+
+        Thread thread4 = <span class="s0">new </span>Thread(() -&gt; {
+            <span class="s0">try </span>{
+                semaphore.acquire();
+                counter++;
+                LOG.info(<span class="s3">&quot;Semaphor wurde passiert. Thread4 wird nun am Fabrikband &quot; </span>+ counter + <span class="s3">&quot; erstellt&quot;</span>);
+                Thread.sleep(<span class="s2">1000</span>);
+            }<span class="s0">catch</span>(InterruptedException ie){
+                LOG.warn(<span class="s3">&quot;interrupted&quot;</span>);
+                <span class="s0">return</span>;
+            }
+            LOG.info(<span class="s3">&quot;Thread 4 ist erstellt.&quot;</span>);
+            counter--;
+            semaphore.release();
+        });
+
+        Thread thread5 = <span class="s0">new </span>Thread(() -&gt; {
+            <span class="s0">try </span>{
+                semaphore.acquire();
+                counter++;
+                LOG.info(<span class="s3">&quot;Semaphor wurde passiert. Thread5 wird nun am Fabrikband &quot; </span>+ counter + <span class="s3">&quot; erstellt&quot;</span>);
+                Thread.sleep(<span class="s2">1000</span>);
+            }<span class="s0">catch</span>(InterruptedException ie){
+                LOG.warn(<span class="s3">&quot;interrupted&quot;</span>);
+                <span class="s0">return</span>;
+            }
+            LOG.info(<span class="s3">&quot;Thread 5 ist erstellt.&quot;</span>);
+            counter--;
+            semaphore.release();
+        });
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        <span class="s0">try </span>{
+            Thread.sleep(<span class="s2">10</span>);
+        }<span class="s0">catch</span>(InterruptedException ie){
+            LOG.info(<span class="s3">&quot;Wartezeit zwischen thread3 und thread4 wurde unterbrochen&quot;</span>);
+        }
+        thread4.start();
+        <span class="s0">try </span>{
+            Thread.sleep(<span class="s2">10</span>);
+        }<span class="s0">catch</span>(InterruptedException ie){
+            LOG.info(<span class="s3">&quot;Wartezeit zwischen thread4 und thread5 wurde unterbrochen&quot;</span>);
+        }
+        thread5.start();
+    }
+}
+</pre>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_oop_maven_template" default="compile.module.oop_maven_template">
+  <dirname property="module.oop_maven_template.basedir" file="${ant.file.module_oop_maven_template}"/>
+  
+  <property name="module.jdk.home.oop_maven_template" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.oop_maven_template" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.oop_maven_template" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.oop_maven_template" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  
+  <property name="oop_maven_template.output.dir" value="${module.oop_maven_template.basedir}/target/classes"/>
+  <property name="oop_maven_template.testoutput.dir" value="${module.oop_maven_template.basedir}/target/test-classes"/>
+  
+  <path id="oop_maven_template.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="oop_maven_template.module.production.classpath">
+    <path refid="${module.jdk.classpath.oop_maven_template}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.11.1.classpath"/>
+  </path>
+  
+  <path id="oop_maven_template.runtime.production.module.classpath">
+    <pathelement location="${oop_maven_template.output.dir}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.11.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.11.1.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.0.0.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.1.1.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.3.2.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-engine:5.3.2.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.3.2.classpath"/>
+  </path>
+  
+  <path id="oop_maven_template.module.classpath">
+    <path refid="${module.jdk.classpath.oop_maven_template}"/>
+    <pathelement location="${oop_maven_template.output.dir}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.11.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.11.1.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.3.2.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.0.0.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.1.1.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.3.2.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-engine:5.3.2.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.3.2.classpath"/>
+    <path refid="library.maven:_org.assertj:assertj-core:3.11.1.classpath"/>
+    <path refid="library.maven:_org.junit-pioneer:junit-pioneer:0.3.0.classpath"/>
+    <path refid="library.maven:_nl.jqno.equalsverifier:equalsverifier:3.1.4.classpath"/>
+  </path>
+  
+  <path id="oop_maven_template.runtime.module.classpath">
+    <pathelement location="${oop_maven_template.testoutput.dir}"/>
+    <pathelement location="${oop_maven_template.output.dir}"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.11.1.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-core:2.11.1.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.3.2.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.0.0.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.1.1.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.3.2.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-engine:5.3.2.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.3.2.classpath"/>
+    <path refid="library.maven:_org.assertj:assertj-core:3.11.1.classpath"/>
+    <path refid="library.maven:_org.junit-pioneer:junit-pioneer:0.3.0.classpath"/>
+    <path refid="library.maven:_nl.jqno.equalsverifier:equalsverifier:3.1.4.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.oop_maven_template">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.oop_maven_template">
+    <patternset refid="excluded.from.module.oop_maven_template"/>
+  </patternset>
+  
+  <path id="oop_maven_template.module.sourcepath">
+    <dirset dir="${module.oop_maven_template.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="oop_maven_template.module.test.sourcepath">
+    <dirset dir="${module.oop_maven_template.basedir}">
+      <include name="src/test/java"/>
+      <include name="src/test/resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.oop_maven_template" depends="compile.module.oop_maven_template.production,compile.module.oop_maven_template.tests" description="Compile module oop_maven_template"/>
+  
+  <target name="compile.module.oop_maven_template.production" depends="register.custom.compilers" description="Compile module oop_maven_template; production classes">
+    <mkdir dir="${oop_maven_template.output.dir}"/>
+    <javac2 destdir="${oop_maven_template.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.oop_maven_template}/javac">
+      <compilerarg line="${compiler.args.oop_maven_template}"/>
+      <bootclasspath refid="oop_maven_template.module.bootclasspath"/>
+      <classpath refid="oop_maven_template.module.production.classpath"/>
+      <src refid="oop_maven_template.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.oop_maven_template"/>
+    </javac2>
+    
+    <copy todir="${oop_maven_template.output.dir}">
+      <fileset dir="${module.oop_maven_template.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.oop_maven_template.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.oop_maven_template.tests" depends="register.custom.compilers,compile.module.oop_maven_template.production" description="compile module oop_maven_template; test classes" unless="skip.tests">
+    <mkdir dir="${oop_maven_template.testoutput.dir}"/>
+    <javac2 destdir="${oop_maven_template.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.oop_maven_template}/javac">
+      <compilerarg line="${compiler.args.oop_maven_template}"/>
+      <bootclasspath refid="oop_maven_template.module.bootclasspath"/>
+      <classpath refid="oop_maven_template.module.classpath"/>
+      <src refid="oop_maven_template.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.oop_maven_template"/>
+    </javac2>
+    
+    <copy todir="${oop_maven_template.testoutput.dir}">
+      <fileset dir="${module.oop_maven_template.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.oop_maven_template.basedir}/src/test/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.oop_maven_template" description="cleanup module">
+    <delete dir="${oop_maven_template.output.dir}"/>
+    <delete dir="${oop_maven_template.testoutput.dir}"/>
+  </target>
+</project>
